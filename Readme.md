@@ -1,12 +1,10 @@
-## Uruchomienie lokalnie
+## Uruchomienie lokalnie wpisujemy z root projektu
 
-Wpisujemy z root projektu
 make build  
 make run
 
-## Uruchomienie w Dockerze
+## Uruchomienie w Dockerze wpisujemy z root projektu
 
-Wpisujemy z root projektu
 make docker-build  
 make docker-run
 
