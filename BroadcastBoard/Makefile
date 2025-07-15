@@ -8,7 +8,7 @@ run:
 	dotnet run --project src/BroadcastBoard.Api
 
 docker-build:
-	docker build -t broadcastboard .
+	docker build -t broadcastboard -f Dockerfile .
 
 docker-run:
-	docker run -p 5000:80 broadcastboard
+	docker run -p 5000:5000 broadcastboard

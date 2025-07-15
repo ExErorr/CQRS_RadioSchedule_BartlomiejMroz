@@ -35,7 +35,6 @@ appsettings.Local.json
 
 # Docker
 *.dockerignore
-Dockerfile
 
 # Coverage
 coverage.*
