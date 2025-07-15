@@ -1,10 +1,12 @@
 ## Uruchomienie lokalnie wpisujemy z root projektu
 
+cd BroadcastBoard
 make build  
 make run
 
 ## Uruchomienie w Dockerze wpisujemy z root projektu
 
+cd BroadcastBoard
 make docker-build  
 make docker-run
 
