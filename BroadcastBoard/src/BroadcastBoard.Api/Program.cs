@@ -1,7 +1,9 @@
 using BroadcastBoard.Api.Controllers;
+using BroadcastBoard.Api.Middleware;
 using BroadcastBoard.Application.Common.Interfaces;
 using BroadcastBoard.Application.Shows.Commands;
 using BroadcastBoard.Domain.Common.Interfaces;
+using BroadcastBoard.Infrastructure.Logging;
 using BroadcastBoard.Infrastructure.Repositories;
 using BroadcastBoard.Infrastructure.Services;
 using MediatR;
@@ -25,37 +27,16 @@ builder.Services.AddSingleton<IShowRepository, InMemoryShowRepository>();
 builder.Services.AddScoped<INotificationService, DummyNotificationService>();
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(ShowsController).Assembly);
+builder.Services.Configure<LoggingOptions>(
+    builder.Configuration.GetSection("LoggingOptions"));
+
+builder.Services.AddSingleton<IErrorLogger, FileErrorLogger>();
 
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionLoggingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.MapControllers();
-
-app.MapGet("/weatherforecast", () =>
-{
-    var summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        )).ToArray();
-
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+public partial class Program { }

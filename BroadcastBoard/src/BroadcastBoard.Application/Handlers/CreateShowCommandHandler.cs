@@ -34,7 +34,9 @@ namespace BroadcastBoard.Application.Shows.Commands
                 (newShowEnd > s.StartTime));
 
             if (hasCollision)
+            {
                 throw new ShowCollisionException(ExceptionMessages.ShowCollidesWithExisting);
+            }
 
             var newShow = new Show
             {

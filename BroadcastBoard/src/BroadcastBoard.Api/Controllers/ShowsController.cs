@@ -21,15 +21,10 @@ namespace BroadcastBoard.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateShowCommand command)
         {
-            try
-            {
-                var result = await _mediator.Send(command);
-                return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
-            }
-            catch (ShowCollisionException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
+
+            var result = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+
         }
 
         [HttpGet]
