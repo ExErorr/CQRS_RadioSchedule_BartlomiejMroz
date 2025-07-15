@@ -1,0 +1,42 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+.vs/
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+
+# ASP.NET Core
+appsettings.*.json
+appsettings.Development.json
+appsettings.Local.json
+
+# DotNet watch
+.dotnet_watch
+
+# Logs
+*.log
+
+# Rider
+.idea/
+
+# Docker
+*.dockerignore
+Dockerfile
+
+# Coverage
+coverage.*
+*.coverage
