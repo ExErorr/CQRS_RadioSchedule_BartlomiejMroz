@@ -1,3 +1,10 @@
+using BroadcastBoard.Api.Controllers;
+using BroadcastBoard.Application.Common.Interfaces;
+using BroadcastBoard.Application.Shows.Commands;
+using BroadcastBoard.Domain.Common.Interfaces;
+using BroadcastBoard.Infrastructure.Repositories;
+using BroadcastBoard.Infrastructure.Services;
+using MediatR;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,13 +20,18 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 });
+builder.Services.AddMediatR(typeof(CreateShowCommandHandler).Assembly);
+builder.Services.AddSingleton<IShowRepository, InMemoryShowRepository>();
+builder.Services.AddScoped<INotificationService, DummyNotificationService>();
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(ShowsController).Assembly);
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
+app.MapControllers();
 
 app.MapGet("/weatherforecast", () =>
 {
